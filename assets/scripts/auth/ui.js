@@ -21,6 +21,8 @@ const onFailure = message => {
 }
 
 const onSignUpSuccess = () => {
+  store.user = store.user
+  console.log = ('user was stored', store.user)
   onSuccess('Mozel Tov! you successfuly signed up! Now, sign in!')
 }
 
@@ -28,8 +30,8 @@ const onSignUpFailure = () => {
   onFailure('Try again, ya maniac!')
 }
 const onSignInSuccess = (responseData) => {
-  store.user = responseData.users
-  console.log = store
+  store.user = responseData.user
+  // console.log = responseData
   onSuccess('Oppa! you are in the mainframe!!')
   // show anything with the CSS class of after auth
   $('.after-auth').show()
@@ -58,10 +60,17 @@ const onsignOutSuccess = () => {
 const onsignOutFailure = () => {
   onFailure('something went wrong')
 }
-const onCreateNewSuccess = () => {
-  onSuccess('Damn dude, spread that love and cloth your neighbor')
+const onCreateNewSuccess = (formData) => {
+  store.item = formData.item
+  onSuccess('Thank you! spread that love and cloth your neighbor')
 }
 const onCreateNewFailure = () => {
+  onSuccess('Shoot- somethig went wrong. Try again, we got this!')
+}
+const onViewItemsSuccess = () => {
+  onSuccess('Here are all the items you are offering')
+}
+const onViewItemsFailure = () => {
   onSuccess('Shoot- somethig went wrong. Try again, we got this!')
 }
 
@@ -75,5 +84,7 @@ module.exports = {
   onsignOutSuccess,
   onsignOutFailure,
   onCreateNewSuccess,
-  onCreateNewFailure
+  onCreateNewFailure,
+  onViewItemsSuccess,
+  onViewItemsFailure
 }

@@ -45,18 +45,23 @@
       </form>
 
       <h2>Create new items</h2>
-      <form id= "new-item">
-          <input type= "text" name="name" placeholder= "name">
-          <input type= "text" name="size" placeholder= "size">
-          <input type= "text" name="category" placeholder= "category">
-          <input type= "text" name="zip_code" placeholder= "zip code">
-          <button class="btn">Submit</button>
+      <form id="create-item">
+        <input name="item[name]" type="text">
+        <input name="item[size]" type="text">
+        <input name="item[category]" type="text">
+        <input name="item[zip_code]" type="text">
+        <button type="submit">Create Item</button>
       </form>
 
-      <!-- <h2>My Items</h2>
       <form id= "see-all-items">
         <button class="btn">See all Items</button>
-        </form> -->
+        </form>
+
+        <h2>Remove Item</h2>
+        <form id= "remove-item">
+            <input type= "text" name="name" placeholder= "name">
+            <button class="btn">remove</button>
+        </form>
 
 
 <!-- Example Forms -->

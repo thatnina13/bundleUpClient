@@ -5,7 +5,7 @@ const api = require('./api')
 const ui = require('./ui')
 const getFormFeilds = require('../../../lib/get-form-fields.js')
 
-const onSignUp = function (event) {
+const onsignUp = function (event) {
   event.preventDefault()
   console.log('user signed up')
   const form = event.target
@@ -15,9 +15,8 @@ const onSignUp = function (event) {
     .then(ui.onSignUpSuccess)
     .catch(ui.onSignUpFailure)
 }
-const onSignIn = function (event) {
+const onsignIn = function (event) {
   event.preventDefault()
-  console.log('user signed in')
 
   const form = event.target
   const formData = getFormFeilds(form)
@@ -26,7 +25,7 @@ const onSignIn = function (event) {
     .then(ui.onSignInSuccess)
     .catch(ui.onSignInFailure)
 }
-const onChangePassword = event => {
+const onchangePassword = event => {
   event.preventDefault()
   console.log('Changed PW clicked')
   const form = event.target
@@ -44,10 +43,8 @@ const onsignOut = event => {
       console.log('server sent sign out response')
     })
 }
-const oncreateNew = function (event) {
+const oncreateNew = event => {
   event.preventDefault()
-  console.log('user created a new item')
-
   const form = event.target
   const formData = getFormFeilds(form)
 
@@ -56,13 +53,23 @@ const oncreateNew = function (event) {
     .catch(ui.onCreateNewFailure)
 }
 
+const onviewItems = event => {
+  event.preventDefault()
+  console.log('view all items')
+  api.viewItens()
+    .then(ui.onViewItemsSuccess)
+    .catch(ui.onViewItemsFailure)
+}
+
 // when #sign-up is submitted I want to run OnSignUp
 const addHandlers = event => {
-  $('#sign-up').on('submit', onSignUp)
-  $('#sign-in').on('submit', onSignIn)
-  $('#change-password').on('submit', onChangePassword)
+  $('#sign-up').on('submit', onsignUp)
+  $('#sign-in').on('submit', onsignIn)
+  $('#change-password').on('submit', onchangePassword)
   $('#sign-out').on('submit', onsignOut)
   $('#new-item').on('submit', oncreateNew)
+  $('#view-items').on('submit', onviewItems)
+  $('#create-item').on('submit', oncreateNew)
 }
 module.exports = {
   addHandlers

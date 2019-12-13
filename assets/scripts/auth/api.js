@@ -12,6 +12,7 @@ const signUp = formData => {
 }
 
 const signIn = formData => {
+  console.log('formData is ', formData)
   return $.ajax({
     url: config.apiUrl + '/sign-in',
     method: 'POST',
@@ -51,10 +52,32 @@ const createNew = formData => {
   })
 }
 
+const viewItems = () => {
+  return $.ajax({
+    url: config.apiUrl + '/items',
+    method: 'GET'
+    // headers: {
+    //   Authorization: `Token token=${store.user.token}`
+    // }
+  })
+}
+
+// const removeItem = () => {
+//   return $.ajax({
+//     url: config.apiUrl + '/items',
+//     method: 'DELETE',
+//     headers: {
+//       Authorization: `Token token= ${store.user.token}`
+//     }
+//   })
+// }
+
 module.exports = {
   signUp,
   signIn,
   changePassword,
   signOut,
-  createNew
+  createNew,
+  viewItems
+
 }
