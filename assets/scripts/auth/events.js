@@ -27,11 +27,11 @@ const onsignIn = function (event) {
 }
 const onchangePassword = event => {
   event.preventDefault()
-  console.log('Changed PW clicked')
+  // console.log('Changed PW clicked')
   const form = event.target
   const formData = getFormFeilds(form)
 
-  api.changePasword(formData)
+  api.changePassword(formData)
     .then(ui.onchangePasswordSuccess)
     .catch(ui.onchangePasswordFailure)
 }
@@ -39,26 +39,42 @@ const onsignOut = event => {
   event.preventDefault()
 
   api.signOut()
-    .then((res) => {
-      console.log('server sent sign out response')
-    })
+    .then(ui.onSignOutSuccess)
+    .catch(ui.onSignOutFailure)
 }
+
 const oncreateNew = event => {
   event.preventDefault()
   const form = event.target
   const formData = getFormFeilds(form)
 
+  $('form').trigger('reset')
   api.createNew(formData)
-    .then(ui.onCreateNewSuccess)
-    .catch(ui.onCreateNewFailure)
+    .then(function () {
+      onviewItems(event)
+    })
+    .catch(console.error)
 }
 
 const onviewItems = event => {
   event.preventDefault()
   console.log('view all items')
-  api.viewItens()
+  api.viewItems()
     .then(ui.onViewItemsSuccess)
     .catch(ui.onViewItemsFailure)
+}
+
+const onremoveItem = event => {
+  event.preventDefault()
+  // console.log('clicked on remove item')
+
+  const itemId = $(event.target).data('id')
+
+  api.removeItem(itemId)
+    .then(function () {
+      onviewItems(event)
+    })
+    .catch(ui.onremoveItemFailure)
 }
 
 // when #sign-up is submitted I want to run OnSignUp
@@ -68,8 +84,9 @@ const addHandlers = event => {
   $('#change-password').on('submit', onchangePassword)
   $('#sign-out').on('submit', onsignOut)
   $('#new-item').on('submit', oncreateNew)
-  $('#view-items').on('submit', onviewItems)
+  $('#see-all-items').on('submit', onviewItems)
   $('#create-item').on('submit', oncreateNew)
+  $('.results').on('click', '.delete', onremoveItem)
 }
 module.exports = {
   addHandlers

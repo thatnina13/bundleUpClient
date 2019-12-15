@@ -7,17 +7,19 @@ const store = require('../store')
 const onSuccess = message => {
   $('#message')
     .removeClass('failure')
-    .addClass('sucess')
+    .addClass('success')
     .text(message)
-  $('form').trigger('reset')
+    .css('background-color', 'green')
+ $('form').trigger('reset')
 }
 
 const onFailure = message => {
   $('#message')
     .removeClass('success')
-    .addClass('faliure')
+    .addClass('failure')
     .text(message)
-  $('form').trigger('reset')
+    .css('background-color', 'red')
+$('form').trigger('reset')
 }
 
 const onSignUpSuccess = () => {
@@ -43,20 +45,21 @@ const onSignInFailure = () => {
   onFailure('Try again, ya maniac')
 }
 const onchangePasswordSuccess = () => {
-  onSuccess('Well Done!')
+  onSuccess($('.status').text('You have successfully changed your password!'))
 }
 
-const onchangePasswordSuccessFailure = () => {
+const onchangePasswordFailure = () => {
   onFailure('...Sucks to suck...')
 }
 const onsignOutSuccess = () => {
-  onSuccess('Adios')
-  // return to before authEvents
-  // we need to delete the token
-  store.user = {} // the store no longer knows who we are
-  $('.after-auth').hide()
-  $('.before-auth').show()
-}
+  onSuccess($('.status').text('You have successfully signed out!'))
+    store.user = {} // now store.js object will revert back to being empty
+    $('.before-auth').show()
+    $('.after-auth').hide()
+    $('.task-list').hide()
+    $('.task').hide()
+  }
+
 const onsignOutFailure = () => {
   onFailure('something went wrong')
 }
@@ -67,11 +70,21 @@ const onCreateNewSuccess = (formData) => {
 const onCreateNewFailure = () => {
   onSuccess('Shoot- somethig went wrong. Try again, we got this!')
 }
-const onViewItemsSuccess = () => {
-  onSuccess('Here are all the items you are offering')
+const onViewItemsSuccess = (data) => {
+  onSuccess($('.status').text('Items are below!'))
+  // console.log('data is', data)
+  const showItemsHtml = showItemsTemplate({ items: data.items })
+  $('.results').html(showItemsHtml)
 }
-const onViewItemsFailure = () => {
+
+const onViewItemFailure = () => {
   onSuccess('Shoot- somethig went wrong. Try again, we got this!')
+}
+const onremoveItemSuccess = () => {
+  onSuccess('you have deleted that item ')
+}
+const onremoveItemFailure = () => {
+  onSuccess('Shoot- try deleting again ')
 }
 
 module.exports = {
@@ -80,11 +93,13 @@ module.exports = {
   onSignInSuccess,
   onSignInFailure,
   onchangePasswordSuccess,
-  onchangePasswordSuccessFailure,
+  onchangePasswordFailure,
   onsignOutSuccess,
   onsignOutFailure,
   onCreateNewSuccess,
   onCreateNewFailure,
   onViewItemsSuccess,
-  onViewItemsFailure
+  onViewItemFailure,
+  onremoveItemSuccess,
+  onremoveItemFailure
 }

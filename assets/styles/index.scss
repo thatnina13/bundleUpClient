@@ -1,1 +1,15 @@
 @import '~bootstrap/scss/bootstrap';
+
+
+body {
+  background-color: #EFFCFF;
+}
+
+.after-auth {
+  display: none;
+}
+
+.before-auth {
+  border-color: white;
+  align: center;
+}
