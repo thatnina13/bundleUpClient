@@ -3,6 +3,7 @@
 // we're going to greate a function that will let us communicate with the use
 // across all our authentification communications wiht our users
 const store = require('../store')
+const showItemsTemplate = require('../item-listing.handlebars')
 
 const onSuccess = message => {
   $('#message')
@@ -10,7 +11,7 @@ const onSuccess = message => {
     .addClass('success')
     .text(message)
     .css('background-color', 'green')
- $('form').trigger('reset')
+  $('form').trigger('reset')
 }
 
 const onFailure = message => {
@@ -19,53 +20,55 @@ const onFailure = message => {
     .addClass('failure')
     .text(message)
     .css('background-color', 'red')
-$('form').trigger('reset')
+  $('form').trigger('reset')
 }
 
 const onSignUpSuccess = () => {
   store.user = store.user
-  console.log = ('user was stored', store.user)
-  onSuccess('Mozel Tov! you successfuly signed up! Now, sign in!')
+  // console.log = ('user was stored', store.user)
+  onSuccess('Thank you for joining the bundleUp community! Sign in to start listing your items and clothing your neighbor')
 }
 
 const onSignUpFailure = () => {
-  onFailure('Try again, ya maniac!')
+  onFailure('something went wrong but try again!!')
 }
 const onSignInSuccess = (responseData) => {
   store.user = responseData.user
   // console.log = responseData
-  onSuccess('Oppa! you are in the mainframe!!')
+  onSuccess('bundleUp cause baby, you look cold')
   // show anything with the CSS class of after auth
   $('.after-auth').show()
   $('.before-auth').hide()
+  $('.item-list').hide()
+  $('.item').hide()
 }
 // hide anything with the CSS class of after aut
 
 const onSignInFailure = () => {
-  onFailure('Try again, ya maniac')
+  onFailure('something went wrong but try again! we got this!')
 }
 const onchangePasswordSuccess = () => {
-  onSuccess($('.status').text('You have successfully changed your password!'))
+  onSuccess('You have successfully changed your password!')
 }
 
 const onchangePasswordFailure = () => {
-  onFailure('...Sucks to suck...')
+  onFailure('something went wrong but try again! we got this!')
 }
 const onsignOutSuccess = () => {
-  onSuccess($('.status').text('You have successfully signed out!'))
-    store.user = {} // now store.js object will revert back to being empty
-    $('.before-auth').show()
-    $('.after-auth').hide()
-    $('.task-list').hide()
-    $('.task').hide()
-  }
+  onSuccess('You have successfully signed out!')
+  store.user = {} // now store.js object will revert back to being empty
+  $('.before-auth').show()
+  $('.after-auth').hide()
+  // $('.item-list').hide()
+  // $('.item').hide()
+}
 
 const onsignOutFailure = () => {
-  onFailure('something went wrong')
+  onFailure('something went wrong but try again! we got this!')
 }
-const onCreateNewSuccess = (formData) => {
-  store.item = formData.item
+const onCreateNewSuccess = (data) => {
   onSuccess('Thank you! spread that love and cloth your neighbor')
+  store.item = data.item
 }
 const onCreateNewFailure = () => {
   onSuccess('Shoot- somethig went wrong. Try again, we got this!')
@@ -78,7 +81,8 @@ const onViewItemsSuccess = (data) => {
 }
 
 const onViewItemFailure = () => {
-  onSuccess('Shoot- somethig went wrong. Try again, we got this!')
+  // console.log(data.items)
+  onSuccess('to view your list, first add an item')
 }
 const onremoveItemSuccess = () => {
   onSuccess('you have deleted that item ')
