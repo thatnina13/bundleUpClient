@@ -1,1 +1,31 @@
 @import '~bootstrap/scss/bootstrap';
+
+
+body {
+  text-align: center;
+  background-image: url('https://images.complex.com/complex/image/upload/c_limit,dpr_auto,q_90,w_720/fl_lossy,pg_1/tokwa1xglr5r35ugcdsb.jpg');
+  background-size: cover;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  align-content: center;
+  align-self: center;
+  justify-content: space-around;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.after-auth {
+  display: none;
+  align: center;
+}
+.before-auth {
+  border-color: white;
+  align: center;
+}
+// .box{
+//   background:white;
+//   width:300px;
+//   border-radius:6px;
+//   margin: 0 auto 0 auto;
+//   padding:0px 0px 70px 0px;
+//   border: #2980b9 4px solid;
+// }

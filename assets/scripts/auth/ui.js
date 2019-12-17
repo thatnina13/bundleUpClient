@@ -3,75 +3,92 @@
 // we're going to greate a function that will let us communicate with the use
 // across all our authentification communications wiht our users
 const store = require('../store')
+const showItemsTemplate = require('../item-listing.handlebars')
 
 const onSuccess = message => {
   $('#message')
     .removeClass('failure')
-    .addClass('sucess')
+    .addClass('success')
     .text(message)
+    .css('background-color', 'green')
   $('form').trigger('reset')
 }
 
 const onFailure = message => {
   $('#message')
     .removeClass('success')
-    .addClass('faliure')
+    .addClass('failure')
     .text(message)
+    .css('background-color', 'red')
   $('form').trigger('reset')
 }
 
 const onSignUpSuccess = () => {
   store.user = store.user
-  console.log = ('user was stored', store.user)
-  onSuccess('Mozel Tov! you successfuly signed up! Now, sign in!')
+  // console.log = ('user was stored', store.user)
+  onSuccess('Thank you for joining the bundleUp community! Sign in to start listing your items and clothing your neighbor')
 }
 
 const onSignUpFailure = () => {
-  onFailure('Try again, ya maniac!')
+  onFailure('something went wrong but try again!!')
 }
 const onSignInSuccess = (responseData) => {
   store.user = responseData.user
   // console.log = responseData
-  onSuccess('Oppa! you are in the mainframe!!')
+  onSuccess('bundleUp cause baby, you look cold')
   // show anything with the CSS class of after auth
   $('.after-auth').show()
   $('.before-auth').hide()
+  $('.item-list').hide()
+  $('.item').hide()
 }
 // hide anything with the CSS class of after aut
 
 const onSignInFailure = () => {
-  onFailure('Try again, ya maniac')
+  onFailure('something went wrong but try again! we got this!')
 }
 const onchangePasswordSuccess = () => {
-  onSuccess('Well Done!')
+  onSuccess('You have successfully changed your password!')
 }
 
-const onchangePasswordSuccessFailure = () => {
-  onFailure('...Sucks to suck...')
+const onchangePasswordFailure = () => {
+  onFailure('something went wrong but try again! we got this!')
 }
 const onsignOutSuccess = () => {
-  onSuccess('Adios')
-  // return to before authEvents
-  // we need to delete the token
-  store.user = {} // the store no longer knows who we are
-  $('.after-auth').hide()
+  onSuccess('You have successfully signed out!')
+  store.user = {} // now store.js object will revert back to being empty
   $('.before-auth').show()
+  $('.after-auth').hide()
+  // $('.item-list').hide()
+  // $('.item').hide()
 }
+
 const onsignOutFailure = () => {
-  onFailure('something went wrong')
+  onFailure('something went wrong but try again! we got this!')
 }
-const onCreateNewSuccess = (formData) => {
-  store.item = formData.item
+const onCreateNewSuccess = (data) => {
   onSuccess('Thank you! spread that love and cloth your neighbor')
+  store.item = data.item
 }
 const onCreateNewFailure = () => {
   onSuccess('Shoot- somethig went wrong. Try again, we got this!')
 }
-const onViewItemsSuccess = () => {
-  onSuccess('Here are all the items you are offering')
+const onViewItemsSuccess = (data) => {
+  onSuccess($('.status').text('Items are below!'))
+  // console.log('data is', data)
+  const showItemsHtml = showItemsTemplate({ items: data.items })
+  $('.results').html(showItemsHtml)
 }
-const onViewItemsFailure = () => {
-  onSuccess('Shoot- somethig went wrong. Try again, we got this!')
+
+const onViewItemFailure = () => {
+  // console.log(data.items)
+  onSuccess('to view your list, first add an item')
+}
+const onremoveItemSuccess = () => {
+  onSuccess('you have deleted that item ')
+}
+const onremoveItemFailure = () => {
+  onSuccess('Shoot- try deleting again ')
 }
 
 module.exports = {
@@ -80,11 +97,13 @@ module.exports = {
   onSignInSuccess,
   onSignInFailure,
   onchangePasswordSuccess,
-  onchangePasswordSuccessFailure,
+  onchangePasswordFailure,
   onsignOutSuccess,
   onsignOutFailure,
   onCreateNewSuccess,
   onCreateNewFailure,
   onViewItemsSuccess,
-  onViewItemsFailure
+  onViewItemFailure,
+  onremoveItemSuccess,
+  onremoveItemFailure
 }

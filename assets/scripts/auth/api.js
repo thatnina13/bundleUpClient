@@ -12,7 +12,7 @@ const signUp = formData => {
 }
 
 const signIn = formData => {
-  console.log('formData is ', formData)
+  // console.log('formData is ', formData)
   return $.ajax({
     url: config.apiUrl + '/sign-in',
     method: 'POST',
@@ -22,10 +22,10 @@ const signIn = formData => {
 
 const changePassword = formData => {
   return $.ajax({
-    url: config.apiUrl + '/change-Password',
+    url: config.apiUrl + '/change-password',
     method: 'PATCH',
     headers: {
-      Authorization: `Token token= ${store.user.token}`
+      Authorization: `Token token=${store.user.token}`
     },
     data: formData
   })
@@ -35,13 +35,23 @@ const signOut = () => {
     url: config.apiUrl + '/sign-out',
     method: 'DELETE',
     headers: {
-      Authorization: `Token token= ${store.user.token}`
+      Authorization: `Token token=${store.user.token}`
+    }
+  })
+}
+
+const viewItems = () => {
+  return $.ajax({
+    url: config.apiUrl + '/items',
+    method: 'GET',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
     }
   })
 }
 
 const createNew = formData => {
-  console.log('formData is ', formData)
+  // console.log('formData is ', formData)
   return $.ajax({
     url: config.apiUrl + '/items',
     method: 'POST',
@@ -51,26 +61,36 @@ const createNew = formData => {
     data: formData
   })
 }
-
-const viewItems = () => {
+const removeItem = itemId => {
   return $.ajax({
-    url: config.apiUrl + '/items',
-    method: 'GET'
-    // headers: {
-    //   Authorization: `Token token=${store.user.token}`
-    // }
+    url: config.apiUrl + '/items/' + itemId,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    }
   })
 }
-
-// const removeItem = () => {
+// const updateItem = (itemId, formData) => {
 //   return $.ajax({
-//     url: config.apiUrl + '/items',
-//     method: 'DELETE',
+//     url: config.apiUrl + '/items' + itemId,
+//     method: 'PATCH',
 //     headers: {
-//       Authorization: `Token token= ${store.user.token}`
-//     }
+//       Authorization: `Token token=${store.user.token}`
+//     },
+//     data: formData
 //   })
 // }
+
+const submitItemUpdate = (itemId, formData) => {
+  return $.ajax({
+    url: config.apiUrl + '/items/' + itemId,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Token token=${store.user.token}`
+    },
+    data: formData
+  })
+}
 
 module.exports = {
   signUp,
@@ -78,6 +98,8 @@ module.exports = {
   changePassword,
   signOut,
   createNew,
-  viewItems
+  viewItems,
+  removeItem,
+  submitItemUpdate
 
 }
