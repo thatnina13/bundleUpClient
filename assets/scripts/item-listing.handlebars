@@ -9,8 +9,8 @@
         {{/if}}
       </p>
       <form class="update-item" data-id="{{item.id}}">
-        <input placeholder="Update item" name="item[name]" type="text">
-        <button class="submit" data-id="{{item.id}}">Create Item</button>
+        <input placeholder="Update name" name="item[name]" type="text">
+        <button class="submit" data-id="{{item.id}}">Submit changes</button>
       </form>
     <h6>Size:</h6>
       <p class="item-info">
@@ -33,10 +33,10 @@
         {{/if}}
       </p>
       <form class="update-item" data-id="{{item.id}}">
-        <input placeholder="Update Category" name="task[category]" type="text">
-        <button class="submit" data-id="{{task.id}}">Submit changes</button>
+        <input placeholder="Update Category" name="item[category]" type="text">
+        <button class="submit" data-id="{{item.id}}">Submit changes</button>
       </form>
-      <h6>Zip_code:</h6>
+      <h6>Zip code:</h6>
         <p class="item-info">
           {{#if item.zip_code}}
             {{item.zip_code}}

@@ -101,5 +101,4 @@ module.exports = {
   viewItems,
   removeItem,
   submitItemUpdate
-
 }

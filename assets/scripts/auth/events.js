@@ -39,8 +39,8 @@ const onsignOut = event => {
   event.preventDefault()
 
   api.signOut()
-    .then(ui.onSignOutSuccess)
-    .catch(ui.onSignOutFailure)
+    .then(ui.onsignOutSuccess)
+    .catch(ui.onsignOutFailure)
 }
 
 const oncreateNew = event => {
@@ -50,18 +50,16 @@ const oncreateNew = event => {
 
   $('form').trigger('reset')
   api.createNew(formData)
-    // .then(function () {
-    //   onviewItems(event)
-    // })
-    .catch(console.error)
+    .then(ui.oncreateNewSuccess)
+    .catch(ui.oncreateNewFailure)
 }
 
 const onviewItems = event => {
   event.preventDefault()
   // console.log('show items button works')
   api.viewItems()
-    .then(ui.onViewItemsSuccess)
-    .catch(ui.onViewItemsFailure)
+    .then(ui.onviewItemsSuccess)
+    .catch(ui.onviewItemsFailure)
   $('.item').show()
   $('.default-state').hide()
 }
@@ -75,6 +73,7 @@ const onremoveItem = event => {
     .then(function () {
       onviewItems(event)
     })
+    .then(ui.onremoveItemSuccess)
     .catch(ui.onremoveItemFailure)
 }
 
@@ -91,7 +90,8 @@ const onSubmitItemUpdate = event => {
     .then(function (data) {
       onviewItems(event)
     })
-    .catch(ui.onItemUpdateFailure)
+    .then(ui.onsubmitItemUpdateSuccess)
+    .catch(ui.onsubmitItemUpdateFailure)
 }
 
 const onUpdateItem = event => {
@@ -107,7 +107,7 @@ const addHandlers = event => {
   $('#change-password').on('submit', onchangePassword)
   $('#sign-out').on('submit', onsignOut)
   $('#new-item').on('submit', oncreateNew)
-  $('#see-all-items').on('submit', onviewItems)
+  $('#see-all-items').on('click', onviewItems)
   $('#create-item').on('submit', oncreateNew)
   $('.results').on('click', '.delete', onremoveItem)
   $('.results').on('submit', '.update-item', onSubmitItemUpdate)

@@ -12,8 +12,13 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body>
+      <section class="auth">
+            <h1>bundleUp</h1>
+            <p class="instructions">Welcome! </br> You can manage your closet of donations by creating items</p>
+          <section class="status"></section>
+
         <section class= 'before-auth'>
-          <h1>bundleUp</h1>
+          <h1>cloth your neighbor!</h1>
           <!-- <h4>you look chilly boo.</h4> -->
           <div id="message"></div>
           <h2>Sign Up</h2>
@@ -44,38 +49,21 @@
     <form id= "sign-out">
       <button class="btn">Sign Out</button>
       </form>
-      <h2>Create new items</h2>
-      <form id="create-item">
-        <input placeholder="Item Name" name="item[name]" type="text">
-        <input placeholder="Item Size" name="item[size]" type="text">
-        <input placeholder="Item Category" name="item[category]" type="text">
-        <input placeholder="Item Zip_code" name="task[zip_code]" type="text">
-
-        <!-- <input name="item[name]" type="text">
-        <input name="item[size]" type="text">
-        <input name="item[category]" type="text">
-        <input name="item[zip_code]" type="text"> -->
-        <button type="submit">Create Item</button>
+    <!-- <section class= "Items"> -->
+        <!-- <h2>Items</h2> -->
+        <form id="create-item">
+          <input placeholder="Item Name" name="item[name]" type="text">
+          <input placeholder="Item Size" name="item[size]" type="text">
+          <input placeholder="Item Category" name="item[category]" type="text">
+          <input placeholder="Item Zip_code" name="task[zip_code]" type="text">
+          <button type="submit">Create Item</button>
       </form>
-
-      <form id= "see-all-items">
-        <button class="btn">See all Items</button>
-      </form>
-
-        <!-- <h2>Remove Item</h2>
-        <form id= "remove-item">
-            <input type= "text" name="name" placeholder= "name">
-            <button class="btn">remove</button>
-        </form> -->
-
-
-<!-- Example Forms -->
-<!-- <h2>Create Example</h2>
-<form id='create-example'>
-  <input type="text" name="example[text]" placeholder="enter some text">
-  <input type="submit" value="Create example">
-</form> -->
+          <form id= "see-all-items">
+            <button class="btn">See all Items</button>
+          </form>
       </section>
+      </section>
+      <!-- </section> -->
       <section class="results">
       </section>
     </body>
