@@ -37,7 +37,7 @@ const onSignInSuccess = responseData => {
   onSuccess('bundleUp cause baby, you look cold')
   // console.log = responseData
   // $('.after-auth').show()
-  // $('.before-auth').hide()
+  $('.before-auth').hide()
   $('.after-auth').show()
   // $('.item').hide()
 }
@@ -66,7 +66,7 @@ const oncreateNewFailure = () => {
   onFailure('Shoot- somethig went wrong. Try again, we got this!')
 }
 const onviewItemsSuccess = (data) => {
-  onSuccess('Here are your items! if you see none, create some you maniac')
+  // onSuccess('Here are your items! if you see none, create some you maniac')
   const showItemsHtml = showItemsTemplate({ items: data.items })
   $('.results').html(showItemsHtml)
 }
@@ -74,10 +74,10 @@ const onviewItemsSuccess = (data) => {
 const onviewItemsFailure = message => {
   onFailure('to view your list, first add an item')
 }
-const onremoveItemSuccess = message => {
+const onremoveItemSuccess = () => {
   onSuccess('you have deleted your item')
 }
-const onremoveItemFailure = message => {
+const onremoveItemFailure = () => {
   onFailure('Shoot- try deleting again')
 }
 
@@ -88,10 +88,10 @@ const onsignOutSuccess = () => {
   $('.after-auth').hide()
 }
 
-const onsubmitItemUpdateSuccess = message => {
+const onsubmitItemUpdateSuccess = () => {
   onSuccess('you have updated your item')
 }
-const onsubmitItemUpdateFailure = message => {
+const onsubmitItemUpdateFailure = () => {
   onFailure('oops- something went wrong! try again!')
 }
 
